@@ -1,6 +1,6 @@
 import helmet from "helmet";
 import express, { ErrorRequestHandler } from "express";
-import { getTodos } from "./db";
+import { getTodos, createTodos } from "./db";
 
 const app = express();
 app.set("view engine", "pug");
@@ -28,15 +28,27 @@ app.use(
     },
   })
 );
-0;
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
   console.log(req.query);
+  const message = req.query?.message ?? "";
   const todos = await getTodos();
-  res.render("index", { todos: todos });
+  res.render("index", { todos: todos, message });
+});
+
+app.post("/create", async (req, res) => {
+  console.log(req.body);
+  const todoText = req.body?.todoText ?? "";
+  try {
+    await createTodos(todoText);
+    res.redirect("/");
+  } catch (err) {
+    res.redirect(`/?message=${err}`);
+  }
 });
 
 // Running app

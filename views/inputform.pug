@@ -1,5 +1,5 @@
-form(method="POST")
+form(method="POST" action="/create")
     input(type="text" name="todoText")
     button(type="submit") Submit
-    if error
-        div(class="pico-color-red-500")=error
+    if message
+        div(class="pico-color-red-400")=message
