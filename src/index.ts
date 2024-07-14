@@ -1,17 +1,20 @@
 import helmet from "helmet";
 import express, { ErrorRequestHandler } from "express";
+import { getTodos } from "./db";
 
 const app = express();
 app.set("view engine", "pug");
-
 const scriptSources = [
   "'self'",
   "'unsafe-inline'",
   "'unsafe-eval'",
-  "http://localhost:35729",
+  // "http://localhost:35729", // Livereload
 ];
 const styleSources = ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net"];
-const connectSources = ["'self'", "ws://localhost:35729"];
+const connectSources = [
+  "'self'",
+  // "ws://localhost:35729" // Livereload
+];
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -25,13 +28,15 @@ app.use(
     },
   })
 );
-
+0;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Todo5", message: "Hello" });
+app.get("/", async (req, res) => {
+  console.log(req.query);
+  const todos = await getTodos();
+  res.render("index", { todos: todos });
 });
 
 // Running app

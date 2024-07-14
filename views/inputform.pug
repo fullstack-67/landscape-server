@@ -1,0 +1,5 @@
+form(method="POST")
+    input(type="text" name="todoText")
+    button(type="submit") Submit
+    if error
+        div(class="pico-color-red-500")=error
