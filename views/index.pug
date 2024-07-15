@@ -5,11 +5,11 @@ head
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css")
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css")
     //- Livereload
-    //- script(type='text/javascript', src="script.js") 
+    //- script(type='text/javascript' src="script.js") 
 
 body(class="container")
     h1 Todo
     div(id="todoform")
         include inputform.pug
-    div(id="todolist" hx-get="/todolist" hx-trigger="refetchtodo from:body")
+    div(id="todolist")
         include todolist.pug

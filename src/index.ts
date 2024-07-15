@@ -1,6 +1,6 @@
 import helmet from "helmet";
 import express, { ErrorRequestHandler } from "express";
-import { getTodos, createTodos } from "./db";
+import { getTodos, createTodos, deleteTodo } from "./db";
 
 const app = express();
 app.set("view engine", "pug");
@@ -41,10 +41,20 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/create", async (req, res) => {
-  console.log(req.body);
   const todoText = req.body?.todoText ?? "";
   try {
     await createTodos(todoText);
+    res.redirect("/");
+  } catch (err) {
+    res.redirect(`/?message=${err}`);
+  }
+});
+
+app.post("/delete", async (req, res) => {
+  console.log(req.body);
+  const id = req.body?.id ?? "";
+  try {
+    await deleteTodo(id);
     res.redirect("/");
   } catch (err) {
     res.redirect(`/?message=${err}`);
