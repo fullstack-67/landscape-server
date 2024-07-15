@@ -5,4 +5,6 @@ for todo, idx in todos
     form(action="/delete" method="POST")
       input(type="hidden" value=`${todo.id}` name="id")
       button(type="submit") 🗑️
-    div 🖊️✍🏻
+    form(action="/edit" method="POST")
+      input(type="hidden" value=`${todo.id}` name="curId")
+      button(type="submit") 🖊️
