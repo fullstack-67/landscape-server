@@ -37,7 +37,7 @@ app.get("/", async (req, res) => {
   console.log(req.query);
   const message = req.query?.message ?? "";
   const todos = await getTodos();
-  res.render("index", { todos: todos, message });
+  res.render("index", { todos: todos, message: message, mode: "ADD" });
 });
 
 app.post("/create", async (req, res) => {
@@ -62,7 +62,7 @@ app.post("/delete", async (req, res) => {
 });
 
 app.post("/edit", async (req, res) => {
-  res.render("edit", { todos: [], message: "" });
+  res.render("edit", { message: "", mode: "EDIT" });
 });
 
 app.post("/update", async (req, res) => {
