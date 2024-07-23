@@ -1,0 +1,11 @@
+//- Main form
+form(method="POST" action=`${mode==="ADD"? "/create" : "/update"}`)
+    input(type="text" name="todoText", value=curTodo.todoText)
+    button(type="submit")=`${mode==="ADD"? "Submit" : "Edit"}`
+    input(type="hidden" value=`${curTodo.id}` name="curId")
+//- Cancel button
+if mode==="EDIT"
+    form(method="GET" action="/")
+        button(type="submit") Cancel
+if message
+    div(class="pico-color-red-400")=message

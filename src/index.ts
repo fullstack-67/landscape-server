@@ -1,5 +1,5 @@
 import helmet from "helmet";
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import { getTodos, createTodos, deleteTodo, updateTodo } from "./db";
 
 const app = express();
@@ -37,7 +37,13 @@ app.get("/", async (req, res) => {
   console.log(req.query);
   const message = req.query?.message ?? "";
   const todos = await getTodos();
-  res.render("index", { todos: todos, message: message, mode: "ADD" });
+  res.render("pages/index", {
+    todos: todos,
+    message: message,
+    mode: "ADD",
+    todoTextUpdated: "",
+    curTodo: { id: "", todoText: "" },
+  });
 });
 
 app.post("/create", async (req, res) => {
@@ -52,7 +58,7 @@ app.post("/create", async (req, res) => {
 
 app.post("/delete", async (req, res) => {
   console.log(req.body);
-  const id = req.body?.id ?? "";
+  const id = req.body?.curId ?? "";
   try {
     await deleteTodo(id);
     res.redirect("/");
@@ -62,14 +68,33 @@ app.post("/delete", async (req, res) => {
 });
 
 app.post("/edit", async (req, res) => {
-  res.render("edit", { message: "", mode: "EDIT" });
+  console.log(req.body);
+  const id = req.body?.curId ?? "";
+  try {
+    const todos = await getTodos();
+    const curTodo = todos.find((el) => el.id === id);
+    console.log({ curTodo });
+    if (!id || !curTodo) {
+      throw new Error("Invalid ID");
+    }
+    res.render("pages/edit", {
+      message: "",
+      mode: "EDIT",
+      todos,
+      curTodo,
+    });
+  } catch (err) {
+    res.redirect(`/?message=${err}`);
+  }
 });
 
 app.post("/update", async (req, res) => {
+  console.log(req.body);
   try {
-    const id = req.body?.id ?? "";
-    const todoTextUpdated = req.body?.todoTextUpdated ?? "";
+    const id = req.body?.curId ?? "";
+    const todoTextUpdated = req.body?.todoText ?? "";
     await updateTodo(id, todoTextUpdated);
+    res.redirect("/");
   } catch (err) {
     res.redirect(`/?message=${err}`);
   }
@@ -79,4 +104,5 @@ app.post("/update", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
   console.log(`Listening on port ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });

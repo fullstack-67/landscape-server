@@ -6,7 +6,7 @@ let todos = [
 ];
 
 function genId() {
-  return new Date().getTime().toString().slice(-4);
+  return new Date().getTime().toString().slice(-6);
 }
 
 export async function getTodos() {

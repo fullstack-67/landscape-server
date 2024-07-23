@@ -3,7 +3,7 @@ for todo, idx in todos
     div=`(${idx + 1})`
     div=`📰 ${todo.todoText}`
     form(action="/delete" method="POST")
-      input(type="hidden" value=`${todo.id}` name="id")
+      input(type="hidden" value=`${todo.id}` name="curId")
       button(type="submit") 🗑️
     form(action="/edit" method="POST")
       input(type="hidden" value=`${todo.id}` name="curId")
