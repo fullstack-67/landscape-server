@@ -45,10 +45,9 @@ app.get("/", async (req, res) => {
   const message = req.query?.message ?? "";
   const todos = await getTodos();
   res.render("pages/index", {
-    todos: todos,
-    message: message,
+    todos,
+    message,
     mode: "ADD",
-    todoTextUpdated: "",
     curTodo: { id: "", todoText: "" },
   });
 });
@@ -83,7 +82,7 @@ app.post("/edit", async (req, res) => {
     if (!id || !curTodo) {
       throw new Error("Invalid ID");
     }
-    res.render("pages/edit", {
+    res.render("pages/index", {
       message: "",
       mode: "EDIT",
       todos,
