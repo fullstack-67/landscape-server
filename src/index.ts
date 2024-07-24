@@ -37,7 +37,7 @@ app.use(morgan("dev"));
 
 // Simulate latency
 app.use(function (req, res, next) {
-  setTimeout(next, 1000);
+  setTimeout(next, 500);
 });
 
 app.get("/", async (req, res) => {
@@ -107,7 +107,7 @@ app.post("/update", async (req, res) => {
 });
 
 // Running app
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
   console.log(`Listening on port ${PORT}`);
   console.log(`http://localhost:${PORT}`);
