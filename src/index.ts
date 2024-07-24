@@ -35,6 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(morgan("dev"));
 
+// Simulate latency
+app.use(function (req, res, next) {
+  setTimeout(next, 1000);
+});
+
 app.get("/", async (req, res) => {
   // console.log(req.query);
   const message = req.query?.message ?? "";
