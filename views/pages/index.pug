@@ -6,10 +6,11 @@ head
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css")
     //- Livereload
     //- script(type='text/javascript' src="script.js") 
-body(class="container")
-    a(href="/")
-        h1 Todo
-    div(id="todoform")
-        include ../components/inputform.pug
-    div(id="todolist")
-        include ../components/todolist.pug
+body
+    main(class="container")
+        a(href="/")
+            h1 Todo
+        div(id="todoform")
+            include ../components/inputform.pug
+        div(id="todolist")
+            include ../components/todolist.pug
