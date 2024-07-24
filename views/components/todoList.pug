@@ -1,10 +1,13 @@
 for todo, idx in todos
-  article(style="display: flex; gap: 1rem")
+  - var fontStyle = curTodo.id === todo.id ? "700" : "400"
+  - var fontClass = curTodo.id === todo.id ? "pico-color-blue-400" : ""
+  article(class='grid' style="grid-template-columns: 0.5fr 4fr 1fr 1fr; align-items: center")
     div=`(${idx + 1})`
-    div=`📰 ${todo.todoText}`
-    form(action="/delete" method="POST")
-      input(type="hidden" value=`${todo.id}` name="curId")
-      button(type="submit") 🗑️
-    form(action="/edit" method="POST")
-      input(type="hidden" value=`${todo.id}` name="curId")
-      button(type="submit") 🖊️
+    div(style=`font-weight: ${fontStyle}` class=`${fontClass}`)=`📰 ${todo.todoText}`
+    if mode === "ADD"
+      form(action="/delete" method="POST" style="display: contents")
+        input(type="hidden" value=`${todo.id}` name="curId")
+        button(type="submit" class="contrast" style="margin-bottom: 0") 🗑️
+      form(action="/edit" method="POST" style="display: contents")
+        input(type="hidden" value=`${todo.id}` name="curId")
+        button(type="submit" class="contrast" style="margin-bottom: 0") 🖊️

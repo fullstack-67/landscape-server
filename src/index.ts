@@ -1,5 +1,6 @@
 import helmet from "helmet";
 import express from "express";
+import morgan from "morgan";
 import { getTodos, createTodos, deleteTodo, updateTodo } from "./db";
 
 const app = express();
@@ -32,9 +33,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(morgan("dev"));
 
 app.get("/", async (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
   const message = req.query?.message ?? "";
   const todos = await getTodos();
   res.render("pages/index", {
@@ -57,7 +59,7 @@ app.post("/create", async (req, res) => {
 });
 
 app.post("/delete", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const id = req.body?.curId ?? "";
   try {
     await deleteTodo(id);
@@ -68,12 +70,11 @@ app.post("/delete", async (req, res) => {
 });
 
 app.post("/edit", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const id = req.body?.curId ?? "";
   try {
     const todos = await getTodos();
     const curTodo = todos.find((el) => el.id === id);
-    console.log({ curTodo });
     if (!id || !curTodo) {
       throw new Error("Invalid ID");
     }
@@ -89,7 +90,7 @@ app.post("/edit", async (req, res) => {
 });
 
 app.post("/update", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const id = req.body?.curId ?? "";
     const todoTextUpdated = req.body?.todoText ?? "";
