@@ -1,0 +1,8 @@
+//- Main form
+- var gridTemplateColumns = mode === "ADD" ? "4fr 1fr" : "4fr 1fr 1fr"
+div(class="grid" style=`grid-template-columns: ${gridTemplateColumns}; align-items: center`)
+    form(hx-post=`${mode==="ADD"? "/create" : "/update"}` hx-target="#wrapperFormList" style="display: contents")
+        input(type="text" name="todoText")
+        button(type="submit") Submit
+if message
+    div(class="pico-color-red-400")=message

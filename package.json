@@ -15,6 +15,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
     "pug": "^3.0.3",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/livereload": "^0.9.5",
+    "@types/morgan": "^1.9.9",
     "livereload": "^0.9.3",
     "nodemon": "^3.1.4",
     "tsc-alias": "^1.8.10"

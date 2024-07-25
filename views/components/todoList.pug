@@ -1,0 +1,6 @@
+for todo, idx in todos
+  article(style="display: flex; gap: 1rem")
+    div=`(${idx + 1})`
+    div=`📰 ${todo.todoText}`
+    div(style="cursor: pointer" hx-post="/deletetodo" hx-vals=`{"id":"${todo.id}"}` hx-swap="none") 🗑️
+    div 🖊️✍🏻
