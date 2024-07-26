@@ -5,6 +5,10 @@
 }
 
 .custom-btn:hover {
+  filter: drop-shadow(0 0 0.5em #646cffaa);
+}
+
+.custom-btn:hover {
   transform: scale(1.2);
   transition: all 0.2s;
 }
