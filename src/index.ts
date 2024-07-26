@@ -1,5 +1,5 @@
 import helmet from "helmet";
-import express, { ErrorRequestHandler } from "express";
+import express, { ErrorRequestHandler, text } from "express";
 import morgan from "morgan";
 import { getTodos, createTodos, deleteTodo, updateTodo } from "./db";
 
@@ -134,6 +134,7 @@ app.post("/update", async (req, res) => {
   // console.log(req.body);
   const id = req.body?.curId ?? "";
   const todoTextUpdated = req.body?.todoText ?? "";
+  console.log({ id, todoTextUpdated });
   try {
     await updateTodo(id, todoTextUpdated);
     const todos = await getTodos();

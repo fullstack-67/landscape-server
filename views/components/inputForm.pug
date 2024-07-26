@@ -1,9 +1,9 @@
 //- Main form
 - var gridTemplateColumns = mode === "ADD" ? "4fr 1fr" : "4fr 1fr 1fr"
-div(class="grid" style=`grid-template-columns: ${gridTemplateColumns}; align-items: center`)
-    form(hx-post=`${mode==="ADD"? "/create" : "/update"}` hx-target="#wrapperFormList" style="display: contents")
+div(class="grid" style=`grid-template-columns: ${gridTemplateColumns}; align-items: start`)
+    form(hx-post=`${mode==="ADD"? "/create" : "/update"}` hx-target="#wrapperFormList" style="display: contents" hx-indicator="#spinner")
         input(type="text" name="todoText" value=curTodo.todoText)
-        input(type="hidden" name="curId" value-curTodo.id)
+        input(type="hidden" name="curId" value=curTodo.id)
         button(type="submit")=`${mode==="ADD"? "Submit" : "Update"}`
         //- Cancel button
         if mode==="EDIT"

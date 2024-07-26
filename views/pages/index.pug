@@ -5,6 +5,7 @@ head
     script(src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous")
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css")
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css")
+    link(rel="stylesheet" type="text/css" href="style.css")
 
 body(class="container")
     main(class="container")
@@ -12,3 +13,4 @@ body(class="container")
             h1 Todo
         div(id="wrapperFormList")
             include ../components/wrapperFormList.pug
+        div(id="spinner" class="lds-dual-ring htmx-indicator")

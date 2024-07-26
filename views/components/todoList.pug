@@ -5,5 +5,5 @@ for todo, idx in todos
     div=`(${idx + 1})`
     div(style=`font-weight: ${fontWeight}` class=`${fontClass}`)=`✍️ ${todo.todoText}`
     if mode === "ADD"
-      div(style="cursor: pointer" hx-post="/delete" hx-vals=`{"curId":"${todo.id}"}` hx-target="#wrapperFormList") 🗑️
-      div(style="cursor: pointer" hx-post="/edit" hx-vals=`{"curId":"${todo.id}"}` hx-target="#wrapperFormList") 🖊️
+      div(style="cursor: pointer" class="custom-btn" hx-post="/delete" hx-vals=`{"curId":"${todo.id}"}` hx-target="#wrapperFormList") 🗑️
+      div(style="cursor: pointer" class="custom-btn" hx-post="/edit" hx-vals=`{"curId":"${todo.id}"}` hx-target="#wrapperFormList") 🖊️
