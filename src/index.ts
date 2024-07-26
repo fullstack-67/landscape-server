@@ -39,50 +39,131 @@ let todos: any = [
   },
 ];
 
+const blankTodo = { id: "", todoText: "" };
+
 app.get("/", async (req, res) => {
   const todos = await getTodos();
-  res.render("pages/index", { todos: todos, mode: "ADD", message: "" });
+
+  res.render("pages/index", {
+    todos: todos,
+    mode: "ADD",
+    message: "",
+    curTodo: blankTodo,
+  });
 });
 
 app.post("/create", async (req, res) => {
   const todoText = req.body?.todoText ?? "";
-  // let error = "";
-  // if (!todoText) {
-  //   error = "Empty text";
-  // } else {
-  //   const id = new Date().getTime().toString();
-  //   todos.push({ id, todoText: `${todoText}` });
-  // }
-  // res.setHeader("HX-Trigger", "refetchtodo");
-  // res.render("inputform", { error: error });
-
   const mode = "ADD";
   try {
     await createTodos(todoText);
     const todos = await getTodos();
-    res.render("components/wrapperFormList", { todos, mode, message: "" });
+    res.render("components/wrapperFormList", {
+      todos,
+      mode,
+      message: "",
+      curTodo: blankTodo,
+    });
   } catch (err) {
     const todos = await getTodos();
-    res.render(`components/wrapperFormList`, { todos, mode, message: err });
+    res.render(`components/wrapperFormList`, {
+      todos,
+      mode,
+      message: err,
+      curTodo: blankTodo,
+    });
+  }
+
+  // * NOTE
+  // A more surgical approach would be be trigger only what needs to be updated.
+  // res.setHeader("HX-Trigger", "refetchtodo");
+  // res.render("inputform", { error: error });
+});
+
+app.post("/delete", async (req, res, next) => {
+  // console.log(req.body);
+  const id = req.body?.curId ?? "";
+  const mode = "ADD";
+  try {
+    await deleteTodo(id);
+    const todos = await getTodos();
+    res.render("components/wrapperFormList", {
+      todos,
+      mode,
+      message: "",
+      curTodo: blankTodo,
+    });
+  } catch (err) {
+    const todos = await getTodos();
+    res.render(`components/wrapperFormList`, {
+      todos,
+      mode,
+      message: err,
+      curTodo: blankTodo,
+    });
   }
 });
 
-app.post("/deletetodo", (req, res, next) => {
-  console.log(req.body);
-
-  const id = req.body.id;
-  if (!id) {
-    res.send("Not OK");
-    next();
+app.post("/edit", async (req, res) => {
+  // console.log(req.body);
+  const id = req.body?.curId ?? "";
+  try {
+    const todos = await getTodos();
+    const curTodo = todos.find((el) => el.id === id);
+    if (!id || !curTodo) {
+      throw new Error("Invalid ID");
+    }
+    res.render("components/wrapperFormList", {
+      todos,
+      mode: "EDIT",
+      message: "",
+      curTodo,
+    });
+  } catch (err) {
+    const todos = await getTodos();
+    res.render(`components/wrapperFormList`, {
+      todos,
+      mode: "ADD",
+      message: err,
+      curTodo: blankTodo,
+    });
   }
-
-  todos = todos.filter((el: any) => el.id !== id);
-  res.setHeader("HX-Trigger", "refetchtodo");
-  res.send("OK");
 });
 
-app.get("/todolist", (req, res) => {
-  res.render("todolist", { todos: todos });
+app.post("/update", async (req, res) => {
+  // console.log(req.body);
+  const id = req.body?.curId ?? "";
+  const todoTextUpdated = req.body?.todoText ?? "";
+  try {
+    await updateTodo(id, todoTextUpdated);
+    const todos = await getTodos();
+    res.render("components/wrapperFormList", {
+      todos,
+      mode: "ADD",
+      message: "",
+      curTodo: blankTodo,
+    });
+  } catch (err) {
+    const todos = await getTodos();
+    let curTodo = todos.find((el) => el.id === id);
+    res.render(`components/wrapperFormList`, {
+      todos,
+      mode: "EDIT",
+      message: err,
+      curTodo: curTodo ?? blankTodo,
+    });
+  }
+});
+
+app.get("/cancel", async (req, res) => {
+  const todos = await getTodos();
+
+  res.render("components/wrapperFormList", {
+    todos: todos,
+    mode: "ADD",
+    message: "",
+    curTodo: blankTodo,
+  });
 });
 
 // Running app
