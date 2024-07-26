@@ -32,13 +32,6 @@ app.use(function (req, res, next) {
   setTimeout(next, 500);
 });
 
-let todos: any = [
-  {
-    id: new Date().getTime().toString(),
-    todoText: "Todo 1",
-  },
-];
-
 const blankTodo = { id: "", todoText: "" };
 
 app.get("/", async (req, res) => {

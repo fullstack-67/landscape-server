@@ -9,9 +9,15 @@
   transition: all 0.2s;
 }
 
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .lds-dual-ring {
   /* change color here */
-  color: #1c4c5b;
+  color: #26839f;
 }
 .lds-dual-ring,
 .lds-dual-ring:after {
@@ -26,11 +32,11 @@
 .lds-dual-ring:after {
   content: " ";
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   margin: 8px;
   border-radius: 50%;
-  border: 6.4px solid currentColor;
+  border: 3px solid currentColor;
   border-color: currentColor transparent currentColor transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
