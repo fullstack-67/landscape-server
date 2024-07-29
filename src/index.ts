@@ -3,6 +3,9 @@ import express from "express";
 import morgan from "morgan";
 import { getTodos, createTodos, deleteTodo, updateTodo } from "./db";
 
+const DB_LATENCY = 500; // ms
+const APP_PORT = 3001;
+
 const app = express();
 app.set("view engine", "pug");
 const scriptSources = [
@@ -37,7 +40,7 @@ app.use(morgan("dev"));
 
 // Simulate latency
 app.use(function (req, res, next) {
-  setTimeout(next, 500);
+  setTimeout(next, DB_LATENCY);
 });
 
 app.get("/", async (req, res) => {
@@ -106,7 +109,7 @@ app.post("/update", async (req, res) => {
 });
 
 // Running app
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || APP_PORT;
 app.listen(PORT, async () => {
   console.log(`Listening on port ${PORT}`);
   console.log(`http://localhost:${PORT}`);
