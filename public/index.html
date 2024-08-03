@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://unpkg.com/htmx.org@2.0.1"
+      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>HTMX Demo</h1>
+      <article>
+        <button hx-get="/text">Click Me</button>
+      </article>
+      <article>
+        <button hx-get="/text" hx-target="#time">Click Me</button>
+        <div id="time"></div>
+      </article>
+    </main>
+  </body>
+</html>

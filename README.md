@@ -1,4 +1,3 @@
-# Todo Apps (HTMX)
+# HTMX Demo
 
 - `npm run dev`
-- You can adjust the server latency in `db.ts`
