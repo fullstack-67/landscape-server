@@ -18,14 +18,38 @@
     <main class="container">
       <h1>HTMX Demo</h1>
       <article>
-        <button hx-get="/text">Click Me</button>
+        <h6>Swap Own Content</h6>
+        <button hx-get="/time">Click Me</button>
       </article>
       <article>
-        <button hx-get="/text" hx-target="#time">Click Me</button>
+        <h6>Swap Other Element's Content</h6>
+        <button hx-get="/time" hx-target="#time">Click Me</button>
         <div id="time"></div>
       </article>
       <article>
-        <div hx-get="/text" hx-trigger="every 1s">Auto Click</div>
+        <h6>Disable While Loading</h6>
+        <button hx-get="/loading" hx-disabled-elt="this">Click Me</button>
+      </article>
+      <article>
+        <h6>Loading indicator</h6>
+        <button hx-get="/loading" hx-indicator="#spinner">Click Me</button>
+        <div id="spinner" class="htmx-indicator">Loading</div>
+      </article>
+      <article>
+        <h6>Confirmation</h6>
+        <button hx-get="/time" hx-confirm="Are you sure?">Click Me</button>
+      </article>
+      <article>
+        <h6>Form Post</h6>
+        <form hx-post="/form" hx-target="#form-response" class="grid">
+          <input type="text" name="input" />
+          <button type="submit">Submit</button>
+        </form>
+        <div id="form-response"></div>
+      </article>
+      <article>
+        <h6>Polling</h6>
+        <div hx-get="/time" hx-trigger="every 1s">Polling</div>
       </article>
     </main>
   </body>
